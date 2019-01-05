@@ -1,0 +1,28 @@
+.btn {
+   @include border-radius(100px);
+   @extend .text-md;
+   margin-bottom: 15px;
+   padding: 7px 20px;
+   border-width: 1px;
+   &-lg {
+      font-size: 18px;
+      padding: 10px 25px;
+      & i {
+         margin-right: 6px;
+         font-size: 22px !important;
+      }
+   }
+   &-sm {
+      @extend .text-sm;
+      padding: 4px 10px;
+   }
+   & i {
+      font-size: 20px;
+      vertical-align: -3px;
+   }
+
+   &.btn-primary{
+      background-color: $primary;
+      color: white;
+   }
+}

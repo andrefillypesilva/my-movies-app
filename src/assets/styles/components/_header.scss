@@ -1,0 +1,58 @@
+.header{
+   height: 140px;
+   width: 100%;
+   display: block;
+   overflow: visible;
+   margin-bottom: 10px;
+   padding: 20px 0 0 0;
+   background-color: $primary-dark;
+   color: $neutral-lightest;
+   position: relative;
+   z-index: 0;
+   
+   &::after{
+      background: url('/assets/img/back.jpg');
+      background-size: 100%;
+      content : "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity : 0.08;
+      z-index: -1;
+   }
+
+   & h1, &__subtitle, &-search{
+      text-align: center;
+      z-index: 1;
+   }
+
+   & h1{
+      margin-bottom: 0px;
+   }
+
+   &__subtitle{
+      margin-bottom: 30px;
+      margin-top: 5px;
+   }
+
+   &-search{
+      position: relative;
+      padding-left: 20px;
+      padding-right: 20px;
+
+      &__icon{
+         position: absolute;
+         top: 8px;
+         left: 32px;
+         color: $neutral-dark;
+      }
+
+      &__input{
+         width: 100%;
+         padding-left: 35px;
+      }
+   }
+}

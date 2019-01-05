@@ -1,0 +1,41 @@
+.cardMovie{
+   display: inline-block;
+   margin: 0px 10px;
+   width: 160px;
+   position: relative;
+   background-color: rgba($neutral, 0.08);
+   @include border-radius(10px);
+
+   &__title, &__duration, &__category{
+      margin: 0px 10px 10px 10px;
+      white-space: initial;
+   }
+
+   &__image{
+      border-radius: 10px 10px 0 0;
+      width: 160px;
+      height: auto;
+      margin-bottom: 10px;
+   }
+
+   &__title{
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 0px;
+   }
+
+   &__duration{
+      font-size: 14px;
+      color: $neutral;
+   }
+
+   &__category{
+      @include border-radius(10px);
+      font-size: 16px;
+      position: relative;
+      padding: 2px 10px;
+      display: inline-block;
+      color: $neutral-lightest;
+      background-color: $primary-dark;
+   }
+}
