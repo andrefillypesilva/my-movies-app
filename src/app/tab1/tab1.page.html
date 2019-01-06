@@ -2,7 +2,7 @@
   <h1>A sua sala de cinema</h1>
   <p class="header__subtitle">Assista aos melhores filmes de graça</p>
   <div class="header-search">
-     <input class="header-search__input" placeholder="Procurar filme">
+     <input class="header-search__input" (keyup)="onKey($event)" placeholder="Procurar filme">
      <ion-icon class="header-search__icon" name="search"></ion-icon>
   </div>
 </header>
@@ -14,10 +14,10 @@
         <span class="section-head__name">Ação</span>
      </div>
      <div class="section-list">
-        <div class="cardMovie">
+        <div class="cardMovie" *ngFor="let movie of movies">
            <img class="cardMovie__image" src="/assets/img/iron-man.jpg">
-           <p class="cardMovie__title">Iron Man</p>
-           <p class="cardMovie__duration">110min</p>
+           <p class="cardMovie__title">{{ movie.name }}</p>
+           <p class="cardMovie__duration">{{ movie.duration }}min</p>
         </div>
      </div>
   </section>

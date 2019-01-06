@@ -1,18 +1,21 @@
 import { Component } from '@angular/core';
+import { MovieServiceService } from '../Services/movie-service.service';
 
 export interface movie { id: string, img: string, name: string, category: string, duration: string }
 
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  styleUrls: ['tab2.page.scss'],
+  providers: [MovieServiceService]
 })
 
 export class Tab2Page {
 
   movie_obj: movie;
+  categories: any;
 
-  constructor() {
+  constructor(private Services: MovieServiceService) {
     this.movie_obj = {
       id: "",
       img: "",
@@ -20,6 +23,8 @@ export class Tab2Page {
       category: "",
       duration: ""
     }
+
+    this.getCategories();
   }
 
   create(form_directive) {
@@ -28,7 +33,22 @@ export class Tab2Page {
     this.movie_obj.name = obj.name;
     this.movie_obj.category = obj.category;
     this.movie_obj.duration = obj.duration;
-
-    console.log(this.movie_obj);
+    
+    this.Services.post('/movies', this.movie_obj)
+      .then(res => {
+        form_directive.reset();
+        alert('Filme adicionado com sucesso!');
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
+
+  getCategories() {
+    this.Services.get('/category')
+      .then(res => {
+        this.categories = JSON.parse(JSON.stringify(res));
+      })
+  }
+  
 }

@@ -3,14 +3,14 @@
   <hr/>
   <form #moviesForm="ngForm">
      <label>Imagem</label>
-     <input type="file" placeholder="cover">
+     <input type="file" id="img" name="img" ngModel #img="ngModel">
 
      <label>Nome</label>
      <input type="text" id="name" name="name" ngModel #name="ngModel" placeholder="Ex. Curtindo a Vida Adoidado" class="mt-5 inputs">
 
      <label>Categoria</label>
      <select id="category" name="category" ngModel #category="ngModel" class="inputs">
-       <option value="1">Ação</option>
+       <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
      </select>
 
      <label>Duração</label>
