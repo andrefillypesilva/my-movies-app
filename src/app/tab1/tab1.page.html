@@ -11,13 +11,15 @@
 
   <section class="section">
      <div class="section-head">
-        <span class="section-head__name">Ação</span>
+        <span class="section-head__name" *ngIf="!show">Ação</span>
+        <span class="section-head__name" *ngIf="show">Resultado da busca</span>
      </div>
      <div class="section-list">
         <div class="cardMovie" *ngFor="let movie of movies">
            <img class="cardMovie__image" src="/assets/img/iron-man.jpg">
            <p class="cardMovie__title">{{ movie.name }}</p>
            <p class="cardMovie__duration">{{ movie.duration }}min</p>
+           <p class="cardMovie__category" *ngIf="show">{{ movie.category_name }}</p>
         </div>
      </div>
   </section>

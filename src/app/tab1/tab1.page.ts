@@ -11,12 +11,14 @@ export class Tab1Page {
   
   movies: any;
   search: string;
+  show: boolean;
 
   constructor(private Services: MovieServiceService) {
     this.getMovies();
   }
 
   getMovies() {
+    this.show = false;
     this.Services.get('/movies')
       .then(res => {
         this.movies = JSON.parse(JSON.stringify(res));
@@ -26,10 +28,16 @@ export class Tab1Page {
   onKey(event: any) {
     this.search = event.target.value;
 
-    this.Services.get('/movies/' + this.search)
-      .then(res => {
-        this.movies = JSON.parse(JSON.stringify(res));
-      })
+    if(this.search == '' || this.search == undefined) {
+      this.getMovies();
+    } else {
+      this.show = true;
+      this.Services.get('/movies/' + this.search)
+        .then(res => {
+          this.movies = JSON.parse(JSON.stringify(res));
+        })
+    }
+
   }
 
 }
