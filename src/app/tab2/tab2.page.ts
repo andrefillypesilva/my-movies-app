@@ -50,5 +50,4 @@ export class Tab2Page {
         this.categories = JSON.parse(JSON.stringify(res));
       })
   }
-  
 }
