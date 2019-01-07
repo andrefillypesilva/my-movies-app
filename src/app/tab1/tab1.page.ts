@@ -1,3 +1,9 @@
+/*
+// tab1.page.ts
+// author: André Fillype (05/01/2019)
+// desc: explore page
+*/
+
 import { Component } from '@angular/core';
 import { MovieServiceService } from '../Services/movie-service.service';
 import { environment } from '../../environments/environment';
@@ -20,6 +26,7 @@ export class Tab1Page {
     this.urlApi = environment.urlApi;
   }
 
+  // default function to get all movies
   getMovies() {
     this.show = false;
     this.Services.get('/movies')
@@ -28,6 +35,7 @@ export class Tab1Page {
       })
   }
 
+  // function to search movies by key
   onKey(event: any) {
     this.search = event.target.value;
 

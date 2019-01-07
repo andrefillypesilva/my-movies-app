@@ -1,3 +1,9 @@
+/*
+// movie-pipe.pipe.ts
+// author: André Fillype (06/01/2019)
+// desc: functions to transform movies properties
+*/
+
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({

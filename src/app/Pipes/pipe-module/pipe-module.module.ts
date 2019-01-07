@@ -1,3 +1,9 @@
+/*
+// pipe-module.module.ts
+// author: André Fillype (06/01/2019)
+// desc: module to join pipes
+*/
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 

@@ -1,3 +1,9 @@
+/*
+// tab3.page.ts
+// author: André Fillype (05/01/2019)
+// desc: perfil page
+*/
+
 import { Component } from '@angular/core';
 
 @Component({

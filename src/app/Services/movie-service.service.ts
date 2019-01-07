@@ -1,3 +1,9 @@
+/*
+// movie-service.service.ts
+// author: André Fillype (05/01/2019)
+// desc: services for use with movies
+*/
+
 import { Injectable } from '@angular/core';
 import { Http, BrowserXhr, Headers } from '@angular/http';
 import { environment } from 'src/environments/environment';
@@ -18,6 +24,7 @@ export class MovieServiceService extends BrowserXhr {
     return headers;
   }
 
+  // default function to call a GET request
   get(schema: string): Promise<any[]> {
     let headers = this.getHeaders();
 
@@ -32,6 +39,7 @@ export class MovieServiceService extends BrowserXhr {
       }));
   }
 
+  // default function to call a POST request
   post(schema: string, body: any): Promise<any[]> {
     let headers = this.getHeaders();
 
@@ -47,24 +55,4 @@ export class MovieServiceService extends BrowserXhr {
       }));
   }
 
-  // upload(schema: string, body: any) {
-  //   let headers = this.getHeaders();
-
-  //   console.log(body);
-
-  //   const formData: any = new FormData();
-
-  //   formData.append("image", body, body.name);
-
-  //   return Promise.resolve(this.http.post(environment.urlApi + schema, formData, { headers: headers })
-  //     .toPromise()
-  //     .then((res) => {
-  //       console.log(res);
-  //       return JSON.parse(res.text());
-  //     })
-  //     .catch((res) => {
-  //       console.log(res);
-  //       return [];
-  //     }));
-  // }
 }

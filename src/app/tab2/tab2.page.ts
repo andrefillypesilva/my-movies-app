@@ -1,10 +1,13 @@
+/*
+// tab2.page.ts
+// author: André Fillype (05/01/2019)
+// desc: new movie page
+*/
+
 import { Component } from '@angular/core';
 import { MovieServiceService } from '../Services/movie-service.service';
-
 import { Http } from '@angular/http';
-
 import { environment } from 'src/environments/environment';
-
 import { map } from "rxjs/operators";
 
 export interface movie { id: string, img: string, name: string, category: string, duration: string }
@@ -34,6 +37,7 @@ export class Tab2Page {
     this.getCategories();
   }
 
+  // function to create a new movie
   create(form_directive) {
     this.uploadFile();
     let obj = JSON.parse(JSON.stringify(form_directive.value));
@@ -53,6 +57,7 @@ export class Tab2Page {
       });
   }
 
+  // default function to get all categories
   getCategories() {
     this.Services.get('/category')
       .then(res => {
@@ -60,10 +65,12 @@ export class Tab2Page {
       })
   }
 
+  // function to prepare file to upload
   prepareFileUpload(file: any) {
     this.fileToUpload = file.target.files[0];
   }
 
+  // function to upload file
   uploadFile() {
     const formData: any = new FormData();
 
