@@ -3,7 +3,7 @@
   <hr/>
   <form #moviesForm="ngForm">
      <label>Imagem</label>
-     <input type="file" (change)="onFileSelected($event)">
+     <input type="file" (change)="prepareFileUpload($event)">
 
      <label>Nome</label>
      <input type="text" id="name" name="name" ngModel #name="ngModel" placeholder="Ex. Curtindo a Vida Adoidado" class="mt-5 inputs">

@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { MovieServiceService } from '../Services/movie-service.service';
 
+import { Http } from '@angular/http';
+
+import { environment } from 'src/environments/environment';
+
+import { map } from "rxjs/operators";
+
 export interface movie { id: string, img: string, name: string, category: string, duration: string }
 
 @Component({
@@ -14,8 +20,9 @@ export class Tab2Page {
 
   movie_obj: movie;
   categories: any;
+  fileToUpload: File = null;
 
-  constructor(private Services: MovieServiceService) {
+  constructor(private Services: MovieServiceService, private http: Http) {
     this.movie_obj = {
       id: "",
       img: "",
@@ -28,11 +35,13 @@ export class Tab2Page {
   }
 
   create(form_directive) {
+    this.uploadFile();
     let obj = JSON.parse(JSON.stringify(form_directive.value));
 
     this.movie_obj.name = obj.name;
     this.movie_obj.category = obj.category;
     this.movie_obj.duration = obj.duration;
+    this.movie_obj.img = this.fileToUpload.name;
     
     this.Services.post('/movies', this.movie_obj)
       .then(res => {
@@ -50,4 +59,19 @@ export class Tab2Page {
         this.categories = JSON.parse(JSON.stringify(res));
       })
   }
+
+  prepareFileUpload(file: any) {
+    this.fileToUpload = file.target.files[0];
+  }
+
+  uploadFile() {
+    const formData: any = new FormData();
+
+    formData.append("image", this.fileToUpload, this.fileToUpload.name);
+
+    this.http.post(environment.urlApi + '/upload', formData)
+        .pipe(map(file => file.json()))
+        .subscribe(file => console.log('file', file))
+  }
+  
 }

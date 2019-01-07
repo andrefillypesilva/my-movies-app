@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MovieServiceService } from '../Services/movie-service.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-tab1',
@@ -12,9 +13,11 @@ export class Tab1Page {
   movies: any;
   search: string;
   show: boolean;
+  urlApi: string;
 
   constructor(private Services: MovieServiceService) {
     this.getMovies();
+    this.urlApi = environment.urlApi;
   }
 
   getMovies() {

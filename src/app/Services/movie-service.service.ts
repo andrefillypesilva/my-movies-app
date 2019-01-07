@@ -46,4 +46,25 @@ export class MovieServiceService extends BrowserXhr {
         return [];
       }));
   }
+
+  // upload(schema: string, body: any) {
+  //   let headers = this.getHeaders();
+
+  //   console.log(body);
+
+  //   const formData: any = new FormData();
+
+  //   formData.append("image", body, body.name);
+
+  //   return Promise.resolve(this.http.post(environment.urlApi + schema, formData, { headers: headers })
+  //     .toPromise()
+  //     .then((res) => {
+  //       console.log(res);
+  //       return JSON.parse(res.text());
+  //     })
+  //     .catch((res) => {
+  //       console.log(res);
+  //       return [];
+  //     }));
+  // }
 }

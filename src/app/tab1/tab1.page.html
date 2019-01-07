@@ -15,7 +15,7 @@
       </div>
       <div class="section-list">
           <div class="cardMovie" *ngFor="let movie of moviesgroupedbycategory.value">
-            <img class="cardMovie__image" src="/assets/img/iron-man.jpg">
+            <img class="cardMovie__image" src="{{ urlApi }}/{{ movie.img }}">
             <p class="cardMovie__title">{{ movie.name }}</p>
             <p class="cardMovie__duration">{{ movie.duration }}min</p>
             <p class="cardMovie__category" *ngIf="show">{{ movie.category_name }}</p>
@@ -30,7 +30,7 @@
       </div>
       <div class="section-list">
           <div class="cardMovie" *ngFor="let movie of movies">
-            <img class="cardMovie__image" src="/assets/img/iron-man.jpg">
+            <img class="cardMovie__image" src="{{ urlApi }}/{{ movie.img }}">
             <p class="cardMovie__title">{{ movie.name }}</p>
             <p class="cardMovie__duration">{{ movie.duration }}min</p>
             <p class="cardMovie__category" *ngIf="show">{{ movie.category_name }}</p>
