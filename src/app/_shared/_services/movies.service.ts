@@ -1,6 +1,7 @@
 /*
-// movie-service.service.ts
+// movies.service.ts
 // author: André Fillype (05/01/2019)
+// changed: (17/07/2020)
 // desc: services for use with movies
 */
 
@@ -11,7 +12,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class MovieServiceService extends BrowserXhr {
+export class MoviesService extends BrowserXhr {
 
   constructor(private http: Http) {
     super();
