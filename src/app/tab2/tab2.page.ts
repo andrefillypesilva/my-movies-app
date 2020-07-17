@@ -5,7 +5,7 @@
 */
 
 import { Component } from '@angular/core';
-import { MovieServiceService } from '../Services/movie-service.service';
+import { MoviesService } from '../_shared/_services/movies.service';
 import { Http } from '@angular/http';
 import { environment } from 'src/environments/environment';
 import { map } from "rxjs/operators";
@@ -16,7 +16,7 @@ export interface movie { id: string, img: string, name: string, category: string
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
   styleUrls: ['tab2.page.scss'],
-  providers: [MovieServiceService]
+  providers: [MoviesService]
 })
 
 export class Tab2Page {
@@ -25,7 +25,7 @@ export class Tab2Page {
   categories: any;
   fileToUpload: File = null;
 
-  constructor(private Services: MovieServiceService, private http: Http) {
+  constructor(private _moviesService: MoviesService, private http: Http) {
     this.movie_obj = {
       id: "",
       img: "",
@@ -47,7 +47,7 @@ export class Tab2Page {
     this.movie_obj.duration = obj.duration;
     this.movie_obj.img = this.fileToUpload.name;
     
-    this.Services.post('/movies', this.movie_obj)
+    this._moviesService.post('/movies', this.movie_obj)
       .then(res => {
         form_directive.reset();
         alert('Filme adicionado com sucesso!');
@@ -59,7 +59,7 @@ export class Tab2Page {
 
   // default function to get all categories
   getCategories() {
-    this.Services.get('/category')
+    this._moviesService.get('/category')
       .then(res => {
         this.categories = JSON.parse(JSON.stringify(res));
       })

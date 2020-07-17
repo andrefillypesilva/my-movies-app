@@ -5,14 +5,14 @@
 */
 
 import { Component } from '@angular/core';
-import { MovieServiceService } from '../Services/movie-service.service';
+import { MoviesService } from '../_shared/_services/movies.service';
 import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  providers: [MovieServiceService]
+  providers: [MoviesService]
 })
 export class Tab1Page {
   
@@ -21,7 +21,7 @@ export class Tab1Page {
   show: boolean;
   urlApi: string;
 
-  constructor(private Services: MovieServiceService) {
+  constructor(private _moviesService: MoviesService) {
     this.getMovies();
     this.urlApi = environment.urlApi;
   }
@@ -29,7 +29,7 @@ export class Tab1Page {
   // default function to get all movies
   getMovies() {
     this.show = false;
-    this.Services.get('/movies')
+    this._moviesService.get('/movies')
       .then(res => {
         this.movies = JSON.parse(JSON.stringify(res));
       })
@@ -43,7 +43,7 @@ export class Tab1Page {
       this.getMovies();
     } else {
       this.show = true;
-      this.Services.get('/movies/' + this.search)
+      this._moviesService.get('/movies/' + this.search)
         .then(res => {
           this.movies = JSON.parse(JSON.stringify(res));
         })
