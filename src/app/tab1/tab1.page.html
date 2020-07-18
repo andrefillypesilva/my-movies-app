@@ -2,8 +2,8 @@
   <h1>A sua sala de cinema</h1>
   <p class="header__subtitle">Assista aos melhores filmes de graça</p>
   <div class="header-search">
-    <input class="header-search__input" (keyup)="onKey($event)" placeholder="Procurar filme">
-    <ion-icon class="header-search__icon" name="search"></ion-icon>
+     <input class="header-search__input" (keyup)="onKey($event)" placeholder="Procurar filme">
+     <ion-icon class="header-search__icon" name="search"></ion-icon>
   </div>
 </header>
 
@@ -11,32 +11,32 @@
   <ng-container *ngIf="!show">
     <section class="section" *ngFor="let moviesgroupedbycategory of movies | groupByMoviePipe: 'category_name' ">
       <div class="section-head">
-        <span class="section-head__name">{{ moviesgroupedbycategory.key }}</span>
+          <span class="section-head__name">{{ moviesgroupedbycategory.key }}</span>
       </div>
       <div class="section-list">
-        <div class="cardMovie" *ngFor="let movie of moviesgroupedbycategory.value">
-          <img class="cardMovie__image" src="{{ urlApi }}/{{ movie.img }}">
-          <p class="cardMovie__title">{{ movie.name }}</p>
-          <p class="cardMovie__duration">{{ movie.duration }}min</p>
-          <p class="cardMovie__category" *ngIf="show">{{ movie.category_name }}</p>
-        </div>
+          <div class="cardMovie" *ngFor="let movie of moviesgroupedbycategory.value">
+            <img class="cardMovie__image" src="{{ urlApi }}/{{ movie.img }}">
+            <p class="cardMovie__title">{{ movie.name }}</p>
+            <p class="cardMovie__duration">{{ movie.duration }}min</p>
+            <p class="cardMovie__category" *ngIf="show">{{ movie.category_name }}</p>
+          </div>
       </div>
     </section>
   </ng-container>
   <ng-container *ngIf="show">
     <section class="section">
       <div class="section-head">
-        <span class="section-head__name">Resultado da busca</span>
+          <span class="section-head__name">Resultado da busca</span>
       </div>
       <div class="section-list">
-        <div class="cardMovie" *ngFor="let movie of movies">
-          <img class="cardMovie__image" src="{{ urlApi }}/{{ movie.img }}">
-          <p class="cardMovie__title">{{ movie.name }}</p>
-          <p class="cardMovie__duration">{{ movie.duration }}min</p>
-          <p class="cardMovie__category" *ngIf="show">{{ movie.category_name }}</p>
-        </div>
+          <div class="cardMovie" *ngFor="let movie of movies">
+            <img class="cardMovie__image" src="{{ urlApi }}/{{ movie.img }}">
+            <p class="cardMovie__title">{{ movie.name }}</p>
+            <p class="cardMovie__duration">{{ movie.duration }}min</p>
+            <p class="cardMovie__category" *ngIf="show">{{ movie.category_name }}</p>
+          </div>
       </div>
     </section>
   </ng-container>
-
+  
 </main>

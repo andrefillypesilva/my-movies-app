@@ -6,15 +6,21 @@
 */
 
 import { Injectable } from '@angular/core';
-import { Http, BrowserXhr, Headers } from '@angular/http';
+import { BrowserXhr, Headers } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+
+// Models
+import { Movie } from './../../_models/movie';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MoviesService extends BrowserXhr {
 
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
     super();
   }
 
@@ -26,34 +32,22 @@ export class MoviesService extends BrowserXhr {
   }
 
   // default function to call a GET request
-  get(schema: string): Promise<any[]> {
-    let headers = this.getHeaders();
+  get(schema: string): Observable<Movie[]> {
+    return this.http.get<Movie[]>(`${environment.urlApi}/${schema}`)
+    .pipe(
+      map((res: any) => {
+        res.object.map(m => {
+          m.category_name = m.category.name;
+        });
 
-    return Promise.resolve(this.http.get(environment.urlApi + schema, { headers: headers })
-      .toPromise()
-      .then((res) => {
-        console.log(JSON.parse(res.text()));
-        return JSON.parse(res.text());
+        return res.object;
       })
-      .catch((res) => {
-        return [];
-      }));
+    );
   }
 
   // default function to call a POST request
-  post(schema: string, body: any): Promise<any[]> {
-    let headers = this.getHeaders();
-
-    return Promise.resolve(this.http.post(environment.urlApi + schema, body, { headers: headers })
-      .toPromise()
-      .then((res) => {
-        console.log(JSON.parse(res.text()));
-        return JSON.parse(res.text());
-      })
-      .catch((res) => {
-        console.log('error');
-        return [];
-      }));
+  post(schema: string, body: any): Observable<Movie[]> {
+    return this.http.post<Movie[]>(`${environment.urlApi}/${schema}`, body);
   }
 
 }

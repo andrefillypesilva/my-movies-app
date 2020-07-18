@@ -7,6 +7,7 @@
 import { Component } from '@angular/core';
 import { MoviesService } from '../_shared/_services/movies.service';
 import { environment } from '../../environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -21,18 +22,17 @@ export class Tab1Page {
   show: boolean;
   urlApi: string;
 
-  constructor(private _moviesService: MoviesService) {
+  constructor(
+    private _moviesService: MoviesService,
+    private _route: ActivatedRoute,
+  ) {
     this.getMovies();
     this.urlApi = environment.urlApi;
   }
 
   // default function to get all movies
   getMovies() {
-    this.show = false;
-    this._moviesService.get('/movies')
-      .then(res => {
-        this.movies = JSON.parse(JSON.stringify(res));
-      })
+    this.movies = this._route.snapshot.data['movies'];
   }
 
   // function to search movies by key
@@ -44,9 +44,7 @@ export class Tab1Page {
     } else {
       this.show = true;
       this._moviesService.get('/movies/' + this.search)
-        .then(res => {
-          this.movies = JSON.parse(JSON.stringify(res));
-        })
+      .subscribe(result => this.movies = result);
     }
 
   }

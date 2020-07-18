@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
 
+// Resolvers
+import { MoviesResolver } from './../_shared/_guards/movies-resolver.guard';
+
 const routes: Routes = [
   {
     path: 'tabs',
@@ -15,7 +18,8 @@ const routes: Routes = [
             path: '',
             loadChildren: '../tab1/tab1.module#Tab1PageModule'
           }
-        ]
+        ],
+        resolve: { movies: MoviesResolver }
       },
       {
         path: 'tab2',

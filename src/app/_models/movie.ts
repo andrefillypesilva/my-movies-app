@@ -5,5 +5,6 @@ export interface Movie {
     img: string,
     name: string,
     category: Category,
+    category_name: string,
     duration: number
 }

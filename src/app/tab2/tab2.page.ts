@@ -48,19 +48,16 @@ export class Tab2Page {
     this.movie_obj.img = this.fileToUpload.name;
     
     this._moviesService.post('/movies', this.movie_obj)
-      .then(res => {
+      .subscribe(res => {
         form_directive.reset();
         alert('Filme adicionado com sucesso!');
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      }, err => console.log(err));
   }
 
   // default function to get all categories
   getCategories() {
     this._moviesService.get('/category')
-      .then(res => {
+      .subscribe(res => {
         this.categories = JSON.parse(JSON.stringify(res));
       })
   }
