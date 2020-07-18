@@ -7,19 +7,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { MoviePipePipe } from '../movie-pipe.pipe';
+import { GroupByMoviePipe } from './pipe-module/movie-pipe/group-by-movie.pipe';
 
 @NgModule({
-  declarations: [MoviePipePipe],
+  declarations: [GroupByMoviePipe],
   imports: [
     CommonModule
   ],
-  exports: [MoviePipePipe]
+  exports: [GroupByMoviePipe]
 })
-export class PipeModuleModule {
+export class PipeModule {
   static forRoot() {
     return {
-      ngModule: PipeModuleModule,
+      ngModule: PipeModule,
       providers: [],
     };
   }

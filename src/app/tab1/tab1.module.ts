@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
 
-import { PipeModuleModule } from '../Pipes/pipe-module/pipe-module.module';
+import { PipeModule } from './../_shared/_pipes/pipe.module';
 
 @NgModule({
   imports: [
@@ -13,7 +13,7 @@ import { PipeModuleModule } from '../Pipes/pipe-module/pipe-module.module';
     CommonModule,
     FormsModule,
     RouterModule.forChild([{ path: '', component: Tab1Page }]),
-    PipeModuleModule.forRoot()
+    PipeModule.forRoot()
   ],
   declarations: [Tab1Page]
 })

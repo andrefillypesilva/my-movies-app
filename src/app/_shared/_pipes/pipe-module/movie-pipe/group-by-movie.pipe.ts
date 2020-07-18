@@ -7,9 +7,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'moviePipe'
+  name: 'groupByMoviePipe'
 })
-export class MoviePipePipe implements PipeTransform {
+export class GroupByMoviePipe implements PipeTransform {
 
   transform(value: Array<any>, field: string): Array<any> {
     const groupedObj = value.reduce((prev, cur)=> {
