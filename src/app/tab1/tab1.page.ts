@@ -40,10 +40,11 @@ export class Tab1Page {
     this.search = event.target.value;
 
     if(this.search == '' || this.search == undefined) {
-      this.getMovies();
+      this.show = false;
+      this._moviesService.get('movies').subscribe(result => this.movies = result);
     } else {
       this.show = true;
-      this._moviesService.get('/movies/' + this.search)
+      this._moviesService.get('movies/?query=' + this.search)
       .subscribe(result => this.movies = result);
     }
 
