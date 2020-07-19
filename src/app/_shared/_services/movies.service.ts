@@ -10,10 +10,11 @@ import { BrowserXhr, Headers } from '@angular/http';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 // Models
 import { Movie } from './../../_models/movie';
-import { map } from 'rxjs/operators';
+import { Category } from './../../_models/category';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,16 @@ export class MoviesService extends BrowserXhr {
           m.category_name = m.category.name;
         });
 
+        return res.object;
+      })
+    );
+  }
+
+  // default function to call a GET request
+  getCategories(schema: string): Observable<Category[]> {
+    return this.http.get<Category[]>(`${environment.urlApi}/${schema}`)
+    .pipe(
+      map((res: any) => {
         return res.object;
       })
     );

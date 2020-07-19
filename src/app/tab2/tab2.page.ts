@@ -56,9 +56,9 @@ export class Tab2Page {
 
   // default function to get all categories
   getCategories() {
-    this._moviesService.get('/category')
+    this._moviesService.getCategories('categories')
       .subscribe(res => {
-        this.categories = JSON.parse(JSON.stringify(res));
+        this.categories = res;
       })
   }
 
