@@ -1,23 +1,27 @@
 <main class="new-movie">
   <h1>Cadastro de filme</h1>
-  <hr/>
+  <hr />
   <form [formGroup]="movieForm" (ngSubmit)="onSave()">
-     <label>Imagem</label>
-     <input type="file" (change)="prepareFileUpload($event)">
+    <label>Imagem</label>
+    <input type="file" (change)="onChange($event)">
 
-     <label>Nome</label>
-     <input type="text" id="name" name="name" formControlName="name" placeholder="Ex. Curtindo a Vida Adoidado" class="mt-5 inputs">
+    <label>Nome</label>
+    <input type="text" id="name" name="name" formControlName="name" placeholder="Ex. Curtindo a Vida Adoidado"
+      [class.has-error]="!this.movieForm.get('name').valid && this.movieForm.get('name').dirty" class="mt-5 inputs">
 
-     <label>Categoria</label>
-     <select id="category" name="category" formControlName="category_name" class="inputs">
-       <option *ngFor="let category of categories" [ngValue]="category.name">{{ category.name }}</option>
-     </select>
+    <label>Categoria</label>
+    <select id="category" name="category" formControlName="category_name" class="inputs"
+      [class.has-error]="!this.movieForm.get('category_name').valid && this.movieForm.get('category_name').dirty">
+      <option *ngFor="let category of categories" [ngValue]="category._id">{{ category.name }}</option>
+    </select>
 
-     <label>Duração</label>
-     <input type="text" id="duration" name="duration" formControlName="duration" placeholder="Ex. 144" class="mt-5 inputs">
+    <label>Duração</label>
+    <input type="text" id="duration" name="duration" formControlName="duration" placeholder="Ex. 144"
+      class="mt-5 inputs"
+      [class.has-error]="!this.movieForm.get('duration').valid && this.movieForm.get('duration').dirty">
 
-     <button type="submit" class="btn btn-primary">
-       Cadastrar Filme
-     </button>
+    <button type="submit" class="btn btn-primary">
+      Cadastrar Filme
+    </button>
   </form>
 </main>

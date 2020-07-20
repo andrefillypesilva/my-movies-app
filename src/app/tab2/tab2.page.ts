@@ -23,6 +23,8 @@ import { Movie } from '../_models/movie';
 
 export class Tab2Page implements OnInit {
 
+  file: File;
+  formData: FormData = new FormData();
   movieForm: FormGroup;
   movieObj: Movie;
   categories: any;
@@ -33,6 +35,7 @@ export class Tab2Page implements OnInit {
     private http: Http,
     private _formBuilder: FormBuilder
   ) {
+    this.createMovieObject();
     this.getCategories();
   }
 
@@ -40,23 +43,50 @@ export class Tab2Page implements OnInit {
     this.movieForm = this._formBuilder.group({
       name: ['', Validators.required],
       category_name: ['', Validators.required],
-      duration: ['', Validators.required]
+      duration: ['', Validators.required],
+      img: ['']
     });
+  }
+
+  createMovieObject(): void {
+    this.movieObj = {
+      id: null,
+      category_name: '',
+      duration: 0,
+      name: '',
+      img: '',
+      category: null
+    };
   }
 
   // function to create a new movie
   onSave() {
-    // this.uploadFile();
+    this.validateFields();
 
     if (this.movieForm.valid && this.movieForm.dirty) {
       this.movieObj = Object.assign({}, this.movieObj, this.movieForm.value);
 
       this._moviesService.post('movies', this.movieObj)
         .subscribe(res => {
-          this.movieForm.reset();
-          alert('Filme adicionado com sucesso!');
-        }, err => console.log(err));
+          this._moviesService.upload(this.formData, res.object)
+            .subscribe(res => {
+              alert('Filme adicionado com sucesso!');
+              this.movieForm.reset();
+            }, err => {
+              alert(res.message);
+              console.log(err);
+            });
+        }, err => {
+          alert(err['error']['message']);
+          console.log(err);
+        });
     }
+  }
+
+  validateFields(): void {
+    (<any>Object).values(this.movieForm.controls).forEach(control => {
+      control.markAsDirty();
+    });
   }
 
   // default function to get all categories
@@ -67,20 +97,16 @@ export class Tab2Page implements OnInit {
       })
   }
 
-  // function to prepare file to upload
-  prepareFileUpload(file: any) {
-    this.fileToUpload = file.target.files[0];
-  }
-
   // function to upload file
-  uploadFile() {
-    const formData: any = new FormData();
+  onChange(event): void {
+    const files: FileList = <FileList>event.target.files;
 
-    formData.append("image", this.fileToUpload, this.fileToUpload.name);
+    if (files[0]) {
+      this.file = files[0];
+      this.movieForm.value.img = this.file.name;
 
-    this.http.post(environment.urlApi + '/upload', formData)
-      .pipe(map(file => file.json()))
-      .subscribe(file => console.log('file', file))
+      this.formData.append('img', this.file, this.file.name);
+    }
   }
 
 }

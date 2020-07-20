@@ -7,7 +7,7 @@
 
 import { Injectable } from '@angular/core';
 import { BrowserXhr, Headers } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -15,6 +15,7 @@ import { map } from 'rxjs/operators';
 // Models
 import { Movie } from './../../_models/movie';
 import { Category } from './../../_models/category';
+import { ResponseObject } from './../../_models/response-object';
 
 @Injectable({
   providedIn: 'root'
@@ -57,8 +58,18 @@ export class MoviesService extends BrowserXhr {
   }
 
   // default function to call a POST request
-  post(schema: string, body: any): Observable<Movie[]> {
-    return this.http.post<Movie[]>(`${environment.urlApi}/${schema}`, body);
+  post(schema: string, body: any): Observable<ResponseObject> {
+    return this.http.post<ResponseObject>(`${environment.urlApi}/${schema}`, body);
+  }
+
+  upload(_formData: FormData, _movie: Movie): any {
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+
+    const options = { headers };
+
+    return this.http.post(`${environment.urlApi}/movies/upload/${_movie._id}`, _formData, options);
   }
 
 }

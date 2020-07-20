@@ -120,3 +120,7 @@ input, select, .btn {
 ion-page, .ion-page {
    overflow-y: auto;
 }
+
+.has-error {
+   border-color: red !important;
+}
