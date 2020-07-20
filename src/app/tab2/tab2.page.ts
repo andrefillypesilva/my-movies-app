@@ -4,13 +4,15 @@
 // desc: new movie page
 */
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MoviesService } from '../_shared/_services/movies.service';
 import { Http } from '@angular/http';
 import { environment } from 'src/environments/environment';
 import { map } from "rxjs/operators";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-export interface movie { id: string, img: string, name: string, category: string, duration: string }
+// Models
+import { Movie } from '../_models/movie';
 
 @Component({
   selector: 'app-tab2',
@@ -19,39 +21,42 @@ export interface movie { id: string, img: string, name: string, category: string
   providers: [MoviesService]
 })
 
-export class Tab2Page {
+export class Tab2Page implements OnInit {
 
-  movie_obj: movie;
+  movieForm: FormGroup;
+  movieObj: Movie;
   categories: any;
   fileToUpload: File = null;
 
-  constructor(private _moviesService: MoviesService, private http: Http) {
-    this.movie_obj = {
-      id: "",
-      img: "",
-      name: "",
-      category: "",
-      duration: ""
-    }
-
+  constructor(
+    private _moviesService: MoviesService,
+    private http: Http,
+    private _formBuilder: FormBuilder
+  ) {
     this.getCategories();
   }
 
-  // function to create a new movie
-  create(form_directive) {
-    this.uploadFile();
-    let obj = JSON.parse(JSON.stringify(form_directive.value));
+  ngOnInit(): void {
+    this.movieForm = this._formBuilder.group({
+      name: ['', Validators.required],
+      category_name: ['', Validators.required],
+      duration: ['', Validators.required]
+    });
+  }
 
-    this.movie_obj.name = obj.name;
-    this.movie_obj.category = obj.category;
-    this.movie_obj.duration = obj.duration;
-    this.movie_obj.img = this.fileToUpload.name;
-    
-    this._moviesService.post('/movies', this.movie_obj)
-      .subscribe(res => {
-        form_directive.reset();
-        alert('Filme adicionado com sucesso!');
-      }, err => console.log(err));
+  // function to create a new movie
+  onSave() {
+    // this.uploadFile();
+
+    if (this.movieForm.valid && this.movieForm.dirty) {
+      this.movieObj = Object.assign({}, this.movieObj, this.movieForm.value);
+
+      this._moviesService.post('movies', this.movieObj)
+        .subscribe(res => {
+          this.movieForm.reset();
+          alert('Filme adicionado com sucesso!');
+        }, err => console.log(err));
+    }
   }
 
   // default function to get all categories
@@ -74,8 +79,8 @@ export class Tab2Page {
     formData.append("image", this.fileToUpload, this.fileToUpload.name);
 
     this.http.post(environment.urlApi + '/upload', formData)
-        .pipe(map(file => file.json()))
-        .subscribe(file => console.log('file', file))
+      .pipe(map(file => file.json()))
+      .subscribe(file => console.log('file', file))
   }
-  
+
 }

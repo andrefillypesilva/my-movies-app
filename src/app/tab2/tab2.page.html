@@ -1,22 +1,22 @@
 <main class="new-movie">
   <h1>Cadastro de filme</h1>
   <hr/>
-  <form #moviesForm="ngForm">
+  <form [formGroup]="movieForm" (ngSubmit)="onSave()">
      <label>Imagem</label>
      <input type="file" (change)="prepareFileUpload($event)">
 
      <label>Nome</label>
-     <input type="text" id="name" name="name" ngModel #name="ngModel" placeholder="Ex. Curtindo a Vida Adoidado" class="mt-5 inputs">
+     <input type="text" id="name" name="name" formControlName="name" placeholder="Ex. Curtindo a Vida Adoidado" class="mt-5 inputs">
 
      <label>Categoria</label>
-     <select id="category" name="category" ngModel #category="ngModel" class="inputs">
-       <option *ngFor="let category of categories" [ngValue]="category.id">{{ category.name }}</option>
+     <select id="category" name="category" formControlName="category_name" class="inputs">
+       <option *ngFor="let category of categories" [ngValue]="category.name">{{ category.name }}</option>
      </select>
 
      <label>Duração</label>
-     <input type="text" id="duration" name="duration" ngModel #duration="ngModel" placeholder="Ex. 144" class="mt-5 inputs">
+     <input type="text" id="duration" name="duration" formControlName="duration" placeholder="Ex. 144" class="mt-5 inputs">
 
-     <button (click)="create(moviesForm)" class="btn btn-primary">
+     <button type="submit" class="btn btn-primary">
        Cadastrar Filme
      </button>
   </form>
