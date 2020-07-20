@@ -50,7 +50,7 @@ export class Tab2Page implements OnInit {
 
   createMovieObject(): void {
     this.movieObj = {
-      id: null,
+      _id: '',
       category_name: '',
       duration: 0,
       name: '',

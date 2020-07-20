@@ -1,7 +1,7 @@
 import { Category } from './category';
 
 export interface Movie {
-    _id: number,
+    _id: string,
     img: string,
     name: string,
     category: Category,

@@ -7,6 +7,8 @@ After clone this repository you will need to run `npm i` to install all dependen
 ## How to run
 To run this application you will need only run `ionic serve` as defined in the Ionic Docs.
 
+![Application Example](https://github.com/andrefillypesilva/my-movies-app/blob/master/application_example.jpg?raw=true)
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
